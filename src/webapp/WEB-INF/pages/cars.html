@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of cars</title>
+</head>
+<body>
+
+<table>
+    <thead>
+    <tr>
+        <th>Model</th>
+        <th>Color</th>
+        <th>Number</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${carsList.isEmpty()}">
+        <td>No cars or requested 0</td>
+    </tr>
+    <tr th:each="car : ${carsList}">
+        <td th:text="${car.getModelName()}">Model</td>
+        <td th:text="${car.getColor()}">Color</td>
+        <td th:text="${car.getCarNumber()}">Number</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
