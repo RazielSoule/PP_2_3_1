@@ -1,6 +1,9 @@
 package hiber.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -8,20 +11,23 @@ public class User {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(name = "id")
    private Long id;
 
    @Column(name = "name")
+   @NotEmpty(message = "Enter first name")
+   @Size(min = 2, max = 50, message = "wrong name length")
    private String firstName;
 
    @Column(name = "last_name")
+   @NotEmpty(message = "Enter last name")
+   @Size(min = 2, max = 50, message = "wrong name length")
    private String lastName;
 
    @Column(name = "email")
+   @NotEmpty(message = "Enter email")
+   @Email(message = "Enter correct email")
    private String email;
-
-   @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-   @JoinColumn
-   private Car car;
 
    public User() {}
    
@@ -29,11 +35,6 @@ public class User {
       this.firstName = firstName;
       this.lastName = lastName;
       this.email = email;
-   }
-
-   public void addCar(Car car) {
-      car.setUser(this);
-      this.car = car;
    }
 
    public Long getId() {
@@ -66,13 +67,5 @@ public class User {
 
    public void setEmail(String email) {
       this.email = email;
-   }
-
-   public Car getCar() {
-      return car;
-   }
-
-   public void setCar(Car car) {
-      this.car = car;
    }
 }
